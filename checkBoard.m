@@ -13,12 +13,12 @@ function [isTerminated,score] = checkBoard(board)
 
     board_lr = fliplr(board);
     board_ud = flipud(board);
-    board_lrud = flipud(board_lr)
+    board_lrud = flipud(board_lr);
 
     for j=1:board_size_1
         for i=1:board_size_1
-            for d=1:2
-                sbij = sum(board(i,j,:), d);
+            for d=1:3
+                sbij = sum(board(i,j), d);
                 if sbij==-l
                     isTerminated = true;
                     score = -k+zz;
@@ -88,7 +88,13 @@ function [isTerminated,score] = checkBoard(board)
 
 
     % -------- START CHECK 3D DIAGONALS -----------
-    tfb_1 = trace(board);
+    
+    tfb_1 = 0;
+    for i=1:size(board,3)
+        tfb_1 = tfb_1 + board(i,i,i);
+    end
+    
+    %tfb_1 = trace(board);
     if tfb_1==-l %fliptr - ??????? ???????
            isTerminated = true;
            score = -k+zz;
@@ -99,8 +105,12 @@ function [isTerminated,score] = checkBoard(board)
            score = k-zz;
            return;
     end
-
-    tfb_2 = trace(board_lr);
+    
+    tfb_2 = 0;
+    for i=1:size(board_lr,3)
+        tfb_2 = tfb_2 + board_lr(i,i,i);
+    end
+    %tfb_2 = trace(board_lr);
     if tfb_2==-l %fliptr - ??????? ???????
            isTerminated = true;
            score = -k+zz;
@@ -111,8 +121,12 @@ function [isTerminated,score] = checkBoard(board)
            score = k-zz;
            return;
     end
-
-    tfb_3 = trace(board_ud);
+    
+    tfb_3 = 0;
+    for i=1:size(board_ud, 3)
+        tfb_3 = tfb_3+board_ud(i,i,i);
+    end
+    %tfb_3 = trace(board_ud);
     if tfb_3==-l %fliptr - ??????? ???????
            isTerminated = true;
            score = -k+zz;
@@ -124,7 +138,11 @@ function [isTerminated,score] = checkBoard(board)
            return;
     end
 
-    tfb_4 = trace(board_lrud);
+    tfb_4 = 0;
+    for i=1:size(board_lrud,3)
+        tfb_4 = tfb_4 + board_lrud(i,i,i);
+    end
+    %tfb_4 = trace(board_lrud);
     if tfb_4==-l %fliptr - ??????? ???????
            isTerminated = true;
            score = -k+zz;
@@ -144,7 +162,7 @@ function [isTerminated,score] = checkBoard(board)
     end
 
     if ~isTerminated && score==0
-       score = sum(sum(EVALUATE(board)));
+       %score = sum(sum(EVALUATE(board)));
     end
 
 end

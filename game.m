@@ -7,7 +7,7 @@ isTerminated = false;
 currentPlayer = 1;
 
 %deph of the searching
-deph = 10;
+deph = 4;
 
 %select size of the board
 boardSize = 4;
@@ -33,8 +33,8 @@ while ~isTerminated
             board(x) = currentPlayer;
             currentPlayer = -currentPlayer;
         else
-            q = playTTTT(board,deph,currentPlayer,2);
-            board(q(1),q(2)) = currentPlayer;
+            q = playTTTT(board,deph,currentPlayer,1);
+            board(q(1)) = currentPlayer;
             currentPlayer = -currentPlayer;
         end
     else
@@ -53,8 +53,8 @@ while ~isTerminated
             board(x) = currentPlayer;
             currentPlayer = -currentPlayer;
         else
-            q = playTTTT(board,deph,currentPlayer,2);
-            board(q(1),q(2)) = currentPlayer;
+            q = playTTTT(board,deph,currentPlayer,1);
+            board(q(1)) = currentPlayer;
             currentPlayer = -currentPlayer;
         end
     end

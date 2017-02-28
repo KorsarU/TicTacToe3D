@@ -1,8 +1,8 @@
 function move = playTTTT(varargin)
 
-numIndices = 2;
+numIndices = 3;
 %select how many indices you want to use
-%for example: 2 indices mean board(i,j)
+%for example: 3 indices mean board(i,j,k)
 %             1 index mean board(k)
 
 if nargin==4
@@ -15,11 +15,13 @@ elseif nargin==2
     player = varargin{2};
     deph = 6;
 end
-
+if numIndices ~= 1 
+    numIndices = 1;
+end
 %convert all 2 to -1 for comfort calculations and manipulations with bord positions 
 board(board==2) = -1;
 
-if sum(sum(board==0)) <= 9
+if sum(sum(board==0)) <= 90
 
     
 if player==-1
@@ -58,7 +60,7 @@ end
 %to 1 , otherwise function will return 2 indices
 if numIndices == 1
     move = AM(j);
-elseif numIndices == 2
+elseif numIndices == 3
     q1 = rem(AM(j),size(board,1));
     if q1 == 0
         q1 = size(board,1);
