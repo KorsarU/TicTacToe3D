@@ -5,7 +5,7 @@ function [isTerminated,score] = checkBoard(board)
 
     isTerminated = false;
     score = 0;
-    l = board_size_1;
+    l = size(board,1);
     k = 5000;
     zz = length(find(board));
     board_size_1 = size(board,1);
