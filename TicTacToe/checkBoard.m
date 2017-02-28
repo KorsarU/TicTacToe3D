@@ -36,33 +36,36 @@ function [isTerminated,score] = checkBoard(board)
             return;
         end
     end
-
-    if trace(board)==-l
-           isTerminated = true;
-           score = -k+zz;
-           return;
-    end
     
-    if trace(board)==l
-           isTerminated = true;
-           score = k-zz;
-           return;
-    end
+    for i=1:size(board,1)
+        if trace(board(:,:,i))==-l
+               isTerminated = true;
+               score = -k+zz;
+               return;
+        end
     
+    
+        if trace(board(:,:,i))==l
+               isTerminated = true;
+               score = k-zz;
+               return;
+        end
+    end
     %???????? ???????? ? ?????? ??????????
     
-    if trace(fliplr(board))==-l %fliptr - ??????? ???????
-           isTerminated = true;
-           score = -k+zz;
-           return;
-    end
+    for i=1:size(board(:,:,1))
+        if trace(fliplr(board(:,:,i)))==-l %fliptr - ??????? ???????
+               isTerminated = true;
+               score = -k+zz;
+               return;
+        end
     
-    if trace(fliplr(board))==l
-           isTerminated = true;
-           score = k-zz;
-           return;
+        if trace(fliplr(board(:,:,i)))==l
+               isTerminated = true;
+               score = k-zz;
+               return;
+        end
     end
-       
     if all(all(board)) 
         isTerminated = true;
     end

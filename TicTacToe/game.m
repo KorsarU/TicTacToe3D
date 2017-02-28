@@ -1,18 +1,17 @@
 %Enter point
 function game()
-clc
+
 player1 = 'human';
 player2 = 'ai   ';
 isTerminated = false;
 currentPlayer = 1;
 
-%some kind of difficult level :)
 %deph of the searching
 deph = 10;
 
 %select size of the board
-selectBoard = 4;
-board = zeros(selectBoard,selectBoard);
+boardSize = 4;
+board = zeros(boardSize,boardSize,boardSize);
 
    
 sc = 0;     

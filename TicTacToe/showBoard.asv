@@ -7,13 +7,13 @@ function showBoard(board)
       
       curStr = '';
       for k = 1:size(board,3)
-        disp(strcat('#',int2str(k),': '));
-        for i = 1:size(board,1)
-          for j =1:size(board,2)
-              curStr = strcat(curStr,'|_',char(board(i,j,k)),'_|');
-          end
-          disp(curStr);
-          curStr='';
+        disp(k);
+          for i = 1:size(board,1)
+            for j =1:size(board,2)
+                curStr = strcat(curStr,'|_',char(board(i,j,k)),'_|');
+            end
+            disp(curStr);
+            curStr='';
         end
       end
 end
