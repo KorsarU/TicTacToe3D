@@ -5,10 +5,14 @@ function [isTerminated,score] = checkBoard(board)
 
     isTerminated = false;
     score = 0;
-    l = board_size_1;
+    l = ize(board,1);
     k = 5000;
     zz = length(find(board));
     board_size_1 = size(board,1);
+
+    board_lr = fliplr(board);
+    board_ud = flipud(board);
+    board_lrud = flipud(board_lr)
 
     for j=1:board_size_1
         for i=1:board_size_1
@@ -30,82 +34,55 @@ function [isTerminated,score] = checkBoard(board)
 
     % --------- START CHECK DIAGONALS------------
     for i=1:board_size_1
-        tbi = trace(board(:,:,i));
-        if tbi==-l
+        tbi_1 = trace(board(:,:,i));
+        if tbi_1==-l
                isTerminated = true;
                score = -k+zz;
                return;
         end
-        if tbi==l
+        if tbi_1==l
                isTerminated = true;
                score = k-zz;
                return;
         end
 
-        tfbi = trace(fliplr(board(:,:,i)));
-        if tfbi==-l %fliptr - ??????? ???????
+        tbi_2 = trace(board_lr(:,:,i));
+        if tbi_2==-l %fliptr - ??????? ???????
                isTerminated = true;
                score = -k+zz;
                return;
         end
-        if tfbi==l
+        if tbi_2==l
+               isTerminated = true;
+               score = k-zz;
+               return;
+        end
+
+        tbi_3 = trace(board_ud(:,:,i));
+        if tbi_3==-l %fliptr - ??????? ???????
+               isTerminated = true;
+               score = -k+zz;
+               return;
+        end
+        if tbi_3==l
+               isTerminated = true;
+               score = k-zz;
+               return;
+        end
+
+        tbi_4 = trace(board_lrud(:,:,i));
+        if tbi_4==-l %fliptr - ??????? ???????
+               isTerminated = true;
+               score = -k+zz;
+               return;
+        end
+        if tbi_4==l
                isTerminated = true;
                score = k-zz;
                return;
         end
     end
 
-    for i=1:board_size_1
-        tbi = trace(board(:,i,:));
-        if tbi==-l
-               isTerminated = true;
-               score = -k+zz;
-               return;
-        end
-        if tbi==l
-               isTerminated = true;
-               score = k-zz;
-               return;
-        end
-
-        tfbi = trace(fliplr(board(:,i,:)));
-        if tfbi==-l %fliptr - ??????? ???????
-               isTerminated = true;
-               score = -k+zz;
-               return;
-        end
-        if tfbi==l
-               isTerminated = true;
-               score = k-zz;
-               return;
-        end
-    end
-
-    for i=1:board_size_1
-        tbi = trace(board(i,:,:));
-        if tbi==-l
-               isTerminated = true;
-               score = -k+zz;
-               return;
-        end
-        if tbi==l
-               isTerminated = true;
-               score = k-zz;
-               return;
-        end
-
-        tfbi = trace(fliplr(board(i,:,:)));
-        if tfbi==-l %fliptr - ??????? ???????
-               isTerminated = true;
-               score = -k+zz;
-               return;
-        end
-        if tfbi==l
-               isTerminated = true;
-               score = k-zz;
-               return;
-        end
-    end
     % --------- END CHECK DIAGONALS------------
 
 
@@ -122,7 +99,7 @@ function [isTerminated,score] = checkBoard(board)
            return;
     end
 
-    tfb_2 = trace(fliplr(board));
+    tfb_2 = trace(board_lr);
     if tfb_2==-l %fliptr - ??????? ???????
            isTerminated = true;
            score = -k+zz;
@@ -134,7 +111,7 @@ function [isTerminated,score] = checkBoard(board)
            return;
     end
 
-    tfb_3 = trace(flipud(board));
+    tfb_3 = trace(board_ud);
     if tfb_3==-l %fliptr - ??????? ???????
            isTerminated = true;
            score = -k+zz;
@@ -146,7 +123,7 @@ function [isTerminated,score] = checkBoard(board)
            return;
     end
 
-    tfb_4 = trace(flipud(fliplr(board)));
+    tfb_4 = trace(board_lrud);
     if tfb_4==-l %fliptr - ??????? ???????
            isTerminated = true;
            score = -k+zz;
