@@ -15,54 +15,47 @@ function [isTerminated,score] = checkBoard(board)
     board_ud = flipud(board);
     board_lrud = flipud(board_lr);
 
-    for d=1:board_size_1
-        for i=1:board_size_1
-            for j=1:board_size_1
-                sbij = sum(board(i,j,d));
-                if sbij==-l
-                    isTerminated = true;
-                    score = -k+zz;
-                    return;
-                end
-                if sbij==l
-                    isTerminated = true;
-                    score = k-zz;
-                    return;
-                end
-            end
-        end
-        for j=1:board_size_1
-            for i=1:board_size_1
-                sbij = sum(board(i,j,d));
-                if sbij==-l
-                    isTerminated = true;
-                    score = -k+zz;
-                    return;
-                end
-                if sbij==l
-                    isTerminated = true;
-                    score = k-zz;
-                    return;
-                end
-            end
-        end
-    end
     
-    for j=1:board_size_1
-        for i=1:board_size_1
-            sbij = sum(board(i,j,1:end));
+    for i=1:board_size_1
+        for j=1:board_size_1
+            sbij = sum(board(i,j,:));
             if sbij==-l
-                    isTerminated = true;
-                    score = -k+zz;
-                    return;
+                isTerminated = true;
+                score = -k+zz;
+                return;
             end
             if sbij==l
-                    isTerminated = true;
-                    score = k-zz;
-                    return;
+                isTerminated = true;
+                score = k-zz;
+                return;
             end
-         end
+            
+            sbij_1 = sum(board(i,:,j));
+            if sbij_1==-l
+                isTerminated = true;
+                score = -k+zz;
+                return;
+            end
+            if sbij_1==l
+                isTerminated = true;
+                score = k-zz;
+                return;
+            end
+            
+            sbij_2 = sum(board(:,i,j));
+            if sbij_2==-l
+                isTerminated = true;
+                score = -k+zz;
+                return;
+            end
+            if sbij_2==l
+                isTerminated = true;
+                score = k-zz;
+                return;
+            end
+        end
     end
+
 
     % --------- START CHECK DIAGONALS------------
     for i=1:board_size_1
