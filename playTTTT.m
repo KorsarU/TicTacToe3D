@@ -21,7 +21,7 @@ end
 %convert all 2 to -1 for comfort calculations and manipulations with bord positions 
 board(board==2) = -1;
 
-if sum(sum(board==0)) <= 90
+if sum(sum(sum(board==0))) <= 60
 
     
 if player==-1

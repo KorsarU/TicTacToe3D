@@ -18,7 +18,7 @@ if maxPlayer
             score = s;
         end
         
-        alpha = max([alpha score]);
+        alpha = max([alpha, score]);
         if beta <= alpha
             break;
         end
@@ -33,7 +33,7 @@ else
             score = s;
         end
         
-        beta = min([beta score]);
+        beta = min([beta, score]);
         if beta <= alpha
             break;
         end

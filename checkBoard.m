@@ -7,7 +7,7 @@ function [isTerminated,score] = checkBoard(board)
     score = 0;
 
     l = size(board,1);
-    k = 5000;
+    k = 500;
     zz = length(find(board));
     board_size_1 = size(board,1);
 
@@ -15,10 +15,10 @@ function [isTerminated,score] = checkBoard(board)
     board_ud = flipud(board);
     board_lrud = flipud(board_lr);
 
-    for j=1:board_size_1
+    for d=1:board_size_1
         for i=1:board_size_1
-            for d=1:3
-                sbij = sum(board(i,j), d);
+            for j=1:board_size_1
+                sbij = sum(board(i,j,d));
                 if sbij==-l
                     isTerminated = true;
                     score = -k+zz;
@@ -31,6 +31,37 @@ function [isTerminated,score] = checkBoard(board)
                 end
             end
         end
+        for j=1:board_size_1
+            for i=1:board_size_1
+                sbij = sum(board(i,j,d));
+                if sbij==-l
+                    isTerminated = true;
+                    score = -k+zz;
+                    return;
+                end
+                if sbij==l
+                    isTerminated = true;
+                    score = k-zz;
+                    return;
+                end
+            end
+        end
+    end
+    
+    for j=1:board_size_1
+        for i=1:board_size_1
+            sbij = sum(board(i,j,1:end));
+            if sbij==-l
+                    isTerminated = true;
+                    score = -k+zz;
+                    return;
+            end
+            if sbij==l
+                    isTerminated = true;
+                    score = k-zz;
+                    return;
+            end
+         end
     end
 
     % --------- START CHECK DIAGONALS------------
@@ -157,12 +188,12 @@ function [isTerminated,score] = checkBoard(board)
     % -------- END CHECK 3D DIAGONALS -------------
 
 
-    if all(all(board))
+    if all(all(all(board)))
         isTerminated = true;
     end
 
     if ~isTerminated && score==0
-       %score = sum(sum(EVALUATE(board)));
+       score = sum(sum(sum(EVALUATE(board))));
     end
 
 end

@@ -7,7 +7,7 @@ isTerminated = false;
 currentPlayer = 1;
 
 %deph of the searching
-deph = 4;
+deph = 3;
 
 %select size of the board
 boardSize = 4;
@@ -30,10 +30,14 @@ while ~isTerminated
                     warning('Wrong move! Please try again');
                 end
             end
-            board(x) = currentPlayer;
+            if size(x,2)>1
+                board(x(1),x(2),x(3)) = currentPlayer;
+            else
+                board(x) = currentPlayer;
+            end
             currentPlayer = -currentPlayer;
         else
-            q = playTTTT(board,deph,currentPlayer,1);
+            q = playTTTT(board,deph,currentPlayer,3);
             board(q(1)) = currentPlayer;
             currentPlayer = -currentPlayer;
         end
@@ -54,7 +58,11 @@ while ~isTerminated
             currentPlayer = -currentPlayer;
         else
             q = playTTTT(board,deph,currentPlayer,1);
-            board(q(1)) = currentPlayer;
+            if(size(q)==1)
+                board(q) = currentPlayer;
+            else
+                board(q(1),q(2),q(3)) = currentPlayer;
+            end
             currentPlayer = -currentPlayer;
         end
     end
