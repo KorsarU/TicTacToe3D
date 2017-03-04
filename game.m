@@ -17,6 +17,7 @@ board = zeros(boardSize,boardSize,boardSize);
 sc = 0;     
 
 while ~isTerminated
+    time = clock;
     if currentPlayer == 1
         disp('player1 moves');
         if player1 == 'human'
@@ -67,6 +68,10 @@ while ~isTerminated
         end
     end
     showBoard(board);
+    if(currentPlayer == 1)
+        etime(clock, time)
+    end
+            
     [isTerminated, sc] = checkBoard(board);
 end
 

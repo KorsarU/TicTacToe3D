@@ -94,6 +94,7 @@ for z=1:n
             val(i,i,z) = val(i,i,z) + pos(i,i,z)*(o_num^2);
         end
     end
+    
 end
 %evaluate main diags
 
@@ -114,4 +115,33 @@ for z=1:n
 end
 %evaluate adverse diag
 
+for z = 1:n
+    sum_  = sum(diag(pos(:,:,z)));
+    x_num = sum_==1;
+    o_num = sum_==-1;
+    if(x_num>0 && o_num==0)
+        for xy = 1:4
+            val(xy,xy,z)=val(xy,xy,z) + pos(xy,xy,z)*x_num^2;
+        end
+    end
+    if(o_num>1 && x_num==0)
+        for xy = 1:4
+            val(xy,xy,z)=val(xy,xy,z) + pos(xy,xy,z)*o_num62;
+        end
+    end
+end
+for z = 1:n
+    sum_  = sum(diag(fliplr(pos(:,:,z))));
+    x_num = sum_==1;
+    o_num = sum_==-1;
+    if(x_num>0 && o_num==0)
+        for xy = 1:4
+            val(n+1-xy,n+1-xy,z)=val(n+1-xy,n+1-xy,z) + pos(n+1-xy,n+1-xy,z)*x_num^2;
+        end
+    end
+    if(o_num>1 && x_num==0)
+        for xy = 1:4
+            val(n+1-xy,n+1-xy,z)=val(n+1-xy,n+1-xy,z) + pos(n+1-xy,n+1-xy,z)*o_num62;
+        end
+    end
 end
