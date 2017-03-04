@@ -13,7 +13,7 @@ if maxPlayer
     for i = 1:length(AM')
         newBoard = board;
         newBoard(AM(i)) = player;
-        s = miniMax(newBoard,deph-1,-player,alpha,beta,false);
+        s = miniMax(newBoard,deph-1,-player,alpha,beta,false);        
         if s > score
             score = s;
         end

@@ -7,7 +7,7 @@ isTerminated = false;
 currentPlayer = 1;
 
 %deph of the searching
-deph = 3;
+deph = 2;
 
 %select size of the board
 boardSize = 4;
