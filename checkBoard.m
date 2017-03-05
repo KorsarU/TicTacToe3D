@@ -1,22 +1,25 @@
 % function for heuristic evaluation
 function [isTerminated,score] = checkBoard(board)
-
+    
+    % swap 2s to -1 for computation tricks
     board(board==2) = -1;
 
     isTerminated = false;
     score = 0;
 
+    % compute and save common used information about board
     l = size(board,1);
-    k = 500;
+    k = 5000;
     zz = length(find(board));
     board_size_1 = size(board,1);
     board_size_2 = size(board,2);
 
+    % precompute all flips of board
     board_lr = fliplr(board);
     board_ud = flipud(board);
     board_lrud = flipud(board_lr);
 
-    
+    % -------------START compute all slices of cube ---------
     for i=1:board_size_1
         for j=1:board_size_1
             sbij = sum(board(i,j,:));
@@ -37,6 +40,7 @@ function [isTerminated,score] = checkBoard(board)
             
         end
     end
+    % -------------END compute all slices of cube ---------
 
 
     % --------- START CHECK DIAGONALS------------
