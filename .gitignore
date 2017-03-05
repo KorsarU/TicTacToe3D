@@ -22,3 +22,5 @@ octave-workspace
 .autosave
 
 .DS_Storage
+
+.idea/*
