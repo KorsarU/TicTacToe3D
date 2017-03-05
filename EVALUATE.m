@@ -4,7 +4,6 @@ val = zeros(n,n,n);
 % time = clock;
 for z = 1:n
     local_pos = pos;
-    r = 0;
     for x = 1:n
         %horizontal lines
         x_sum = 0;
@@ -26,19 +25,6 @@ for z = 1:n
         val(x,:,z) = r;
     end
 end
-%clock-time
-%time = clock;
-%for i=1:n
-%    x_num = sum(sum(pos(i,1:end,1:end)==1));
-%    o_num = sum(sum(pos(i,1:end,1:end)==-1));
-%    if (x_num>0) && (o_num==0)
-%        val(i,1:end,1:end) = val(i,1:end,1:end) + pos(i,1:end,1:end)*(x_num^2);
-%    end
-%    if (o_num>0) && (x_num==0)
-%        val(i,1:end,1:end) = val(i,1:end,1:end) + pos(i,1:end,1:end)*(o_num^2);
-%    end
-%end
-%clock - time
 %evaluate lines
 
 for i=1:n
