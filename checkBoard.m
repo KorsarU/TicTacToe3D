@@ -10,6 +10,7 @@ function [isTerminated,score] = checkBoard(board)
     k = 500;
     zz = length(find(board));
     board_size_1 = size(board,1);
+    board_size_2 = size(board,2);
 
     board_lr = fliplr(board);
     board_ud = flipud(board);
@@ -19,40 +20,21 @@ function [isTerminated,score] = checkBoard(board)
     for i=1:board_size_1
         for j=1:board_size_1
             sbij = sum(board(i,j,:));
-            if sbij==-l
-                isTerminated = true;
-                score = -k+zz;
-                return;
-            end
-            if sbij==l
-                isTerminated = true;
-                score = k-zz;
-                return;
-            end
-            
             sbij_1 = sum(board(i,:,j));
-            if sbij_1==-l
+            sbij_2 = sum(board(:,i,j));
+            
+            if sbij==-l || sbij_1==-l || sbij_2==-l
                 isTerminated = true;
                 score = -k+zz;
                 return;
             end
-            if sbij_1==l
+            if sbij==l || sbij_1==l || sbij_2==l
                 isTerminated = true;
                 score = k-zz;
                 return;
             end
             
-            sbij_2 = sum(board(:,i,j));
-            if sbij_2==-l
-                isTerminated = true;
-                score = -k+zz;
-                return;
-            end
-            if sbij_2==l
-                isTerminated = true;
-                score = k-zz;
-                return;
-            end
+            
         end
     end
 
@@ -60,48 +42,30 @@ function [isTerminated,score] = checkBoard(board)
     % --------- START CHECK DIAGONALS------------
     for i=1:board_size_1
         tbi_1 = trace(board(:,:,i));
-        if tbi_1==-l
-               isTerminated = true;
-               score = -k+zz;
-               return;
-        end
-        if tbi_1==l
-               isTerminated = true;
-               score = k-zz;
-               return;
-        end
-
         tbi_2 = trace(board_lr(:,:,i));
-        if tbi_2==-l %fliptr - ??????? ???????
-               isTerminated = true;
-               score = -k+zz;
-               return;
-        end
-        if tbi_2==l
-               isTerminated = true;
-               score = k-zz;
-               return;
-        end
-
         tbi_3 = trace(board_ud(:,:,i));
-        if tbi_3==-l %fliptr - ??????? ???????
-               isTerminated = true;
-               score = -k+zz;
-               return;
-        end
-        if tbi_3==l
-               isTerminated = true;
-               score = k-zz;
-               return;
-        end
-
         tbi_4 = trace(board_lrud(:,:,i));
-        if tbi_4==-l %fliptr - ??????? ???????
+        
+        rb_1 = trace(reshape(board(i,:,:), [board_size_1, board_size_2]));
+        rb_2 = trace(reshape(board_lr(i,:,:), [board_size_1, board_size_2]));
+        rb_3 = trace(reshape(board_ud(i,:,:), [board_size_1, board_size_2]));
+        rb_4 = trace(reshape(board_lrud(i,:,:), [board_size_1, board_size_2]));
+        
+        trb_1 = trace(reshape(board(:,i,:), [board_size_1, board_size_2]));
+        trb_2 = trace(reshape(board_lr(:,i,:), [board_size_1, board_size_2]));
+        trb_3 = trace(reshape(board_ud(:,i,:), [board_size_1, board_size_2]));
+        trb_4 = trace(reshape(board_lrud(:,i,:), [board_size_1, board_size_2]));
+        
+        if tbi_1==-l || tbi_2==-l || tbi_3==-l || tbi_4==-l || ...
+            trb_1==-l || trb_2==-l || trb_3==-l || trb_4==-l || ...
+            rb_1==-l || rb_2==-l || rb_3==-l || rb_4==-l
                isTerminated = true;
                score = -k+zz;
                return;
         end
-        if tbi_4==l
+        if tbi_1==l || tbi_2==l || tbi_3==l || tbi_4==l || ...
+            trb_1==l || trb_2==l || trb_3==l || trb_4==l || ...
+            rb_1==l || rb_2==l || rb_3==l || rb_4==l
                isTerminated = true;
                score = k-zz;
                return;

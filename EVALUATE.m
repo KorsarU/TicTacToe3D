@@ -1,7 +1,7 @@
 function val = EVALUATE (pos)
 n=length(pos);
 val = zeros(n,n,n);
-time = clock;
+% time = clock;
 for z = 1:n
     local_pos = pos;
     r = 0;
