@@ -1,2 +1,5 @@
-Dmitry Bystritsky, d.bystritsky@innopolis.ru
-Fedor Berezyuk, yourmail@innopolis.ru
+To avoid double submission one project, our solution will be submitted by Fedor Berezyuk.
+
+Team:
+Dmitry Bystritsky
+Fedor Berezyuk
