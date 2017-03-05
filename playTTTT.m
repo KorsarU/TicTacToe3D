@@ -33,28 +33,37 @@ end
 % *board is given as a three-by-three matrix containing: 0 = empty position, 1 = X, 2 = O
 % *player is whether your agent will play for 1=X or 2=O
 
+% Load presaved cache to avoid hard computations
+[is_loaded, j] = cache_load(board);
+
+
 %indices of the all possible moves
 AM = getAvailableMoves(board);
 scores = zeros(1,length(AM));
 
-%evaluation of the ways in a tree
-for i = 1:length(AM)
-    newBoard = board;
-    newBoard(AM(i)) = player;
-    if ~maxPlay
-        scores(i) = miniMax(newBoard,deph,-player,-Inf,+Inf,true);
-    else
-        scores(i) = miniMax(newBoard,deph,-player,-Inf,+Inf,false);
-    end
-end
+if ~is_loaded
 
-if ~maxPlay
-%if minimazer plays
-    [minScore,j] = min(scores);
-else
-%if maximazer plays
-    [maxScore,j] = max(scores);    
-end
+    %evaluation of the ways in a tree
+    for i = 1:length(AM)
+        newBoard = board;
+        newBoard(AM(i)) = player;
+        if ~maxPlay
+            scores(i) = miniMax(newBoard,deph,-player,-Inf,+Inf,true);
+        else
+            scores(i) = miniMax(newBoard,deph,-player,-Inf,+Inf,false);
+        end
+    end
+
+    if maxPlay
+    %if maximazer plays
+        [~,j] = max(scores);  
+    else  
+    %if minimazer plays
+        [~,j] = min(scores);
+    end
+    
+    cache_save(board, j);
+end   
 
 %if you want to use 1 index of the matrix , you can set numIndices equals
 %to 1 , otherwise function will return 2 indices
