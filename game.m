@@ -1,9 +1,10 @@
 %Enter point
-function time = game()
+function result = game()
 
-count_of_rounds = 10;
+count_of_rounds = 1;
 sum_of_rounds = zeros(1,count_of_rounds);
-
+count_of_moves = zeros(1,count_of_rounds);
+winners = zeros(1,count_of_rounds);
 for games = 1:count_of_rounds
 player1 = 'ai   ';
 player2 = 'ai   ';
@@ -11,7 +12,7 @@ isTerminated = false;
 currentPlayer = 1;
 
 %deph of the searching
-deph = 3;
+deph = 2;
 
 %select size of the board
 boardSize = 4;
@@ -21,7 +22,7 @@ sc = 0;
 
     time = clock;
     while ~isTerminated
-
+        count_of_moves(games) = count_of_moves(games) + 1;
         if currentPlayer == 1
             disp('player1 moves');
             if player1 == 'human'
@@ -42,7 +43,7 @@ sc = 0;
                 end
                 currentPlayer = -currentPlayer;
             else
-                q = playTTTT(board,deph,currentPlayer,3);
+                q = playTTTT(board,currentPlayer);
                 if(size(q)==1)
                     board(q) = currentPlayer;
                 else
@@ -66,7 +67,7 @@ sc = 0;
                 board(x) = currentPlayer;
                 currentPlayer = -currentPlayer;
             else
-                q = playTTTT(board,deph,currentPlayer,1);
+                q = playTTTT(board,deph,currentPlayer,3);
                 if(size(q)==1)
                     board(q) = currentPlayer;
                 else
@@ -75,23 +76,24 @@ sc = 0;
                 currentPlayer = -currentPlayer;
             end
         end
-        
+        showBoard(board);
         [isTerminated, sc] = checkBoard(board);
     end
-    showBoard(board);
+    %showBoard(board);
     sum_of_rounds(games) = etime(clock, time);
     if sc == 0
+            winners(games) = 0;
             disp('It is a draw');
     elseif sc > 0
+            winners(games) = 1;
             disp('X wins');
     elseif sc < 0
+            winners(games) = 2;
             disp('O wins');
     end
 end
     time = sum(sum_of_rounds)/count_of_rounds;
-
-    
-
+    result = [time, count_of_rounds, sum_of_rounds, count_of_moves, winners]; 
 end
 
 
