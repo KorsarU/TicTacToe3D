@@ -1,0 +1,5 @@
+To avoid double submission of the one project, our solution will be submitted by Fedor Berezyuk.
+
+Team:
+Dmitry Bystritsky
+Fedor Berezyuk
